@@ -1,0 +1,22 @@
+# Node
+node_modules/
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Vite/React/Next.js/Build
+dist/
+build/
+
+# IDEs
+.vscode/
+.idea/
+
+# Optional: if using Git submodules or worktrees
+.gitmodules
