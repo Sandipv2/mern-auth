@@ -12,6 +12,7 @@ function ResetPassword() {
     const [isEmailSent, setIsEmailSent] = useState(false)
     const [isOtpSubmited, setIsOtpSubmited] = useState(false)
     const [otp, setOtp] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -42,6 +43,7 @@ function ResetPassword() {
     async function handleSubmitEmail(e) {
         e.preventDefault()
         try {
+            setLoading(true)
             const { data } = await axios.post(backendUrl + '/api/auth/send-reset-otp', { email })
             if (data.success) {
                 toast.success(data.message)
@@ -49,6 +51,7 @@ function ResetPassword() {
             } else {
                 toast.error(data.message)
             }
+            setLoading(false)
         } catch (err) {
             toast.error(err.message)
         }
@@ -90,8 +93,8 @@ function ResetPassword() {
                     onChange={(e) => setEmail(e.target.value)}
                 />
 
-                <button className='bg-indigo-500 w-full rounded-full py-2 cursor-pointer'>
-                    Submit
+                <button disabled={loading} className='bg-indigo-500 w-full rounded-full py-2 cursor-pointer'>
+                    {loading ? 'Sending OTP...' : 'Submit'}
                 </button>
             </form>}
 
