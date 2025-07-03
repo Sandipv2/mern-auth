@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 function Navbar() {
   const [loading, setLoading] = useState(false)
+  const [showDropown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
   const { userData, backendUrl, setUserData, setIsLoggedIn } = useContext(AppContext);
 
@@ -60,6 +61,10 @@ function Navbar() {
     }
   }
 
+  const toggleDropdown = () => {
+    setShowDropdown(prev => !prev)
+  }
+
   return (
     <nav className='bg-indigo-500 flex justify-around items-center py-2 fixed w-full top-0 z-20 border-white border-b-1'>
       <h1 className='cursor-pointer text-white font-bold'
@@ -67,10 +72,10 @@ function Navbar() {
       >AUTH</h1>
 
       {userData ?
-        <div className='w-8 h-8 cursor-pointer flex justify-center items-center rounded-full bg-black text-white relative group'>
+        <div onClick={toggleDropdown} className='w-8 h-8 cursor-pointer flex justify-center items-center rounded-full bg-black text-white relative group'>
           {userData.name[0].toUpperCase()}
 
-          <div className='absolute hidden group-hover:block top-0 left-0 text-black z-10 pt-10'>
+          {showDropown && <div className='absolute hidden group-hover:block top-0 left-0 text-black z-10 pt-10'>
             <ul className='text-sm bg-gray-100 w-[115px] wrap-break-word rounded'>
               {!userData.isAccountVerified && <li onClick={sendVerificationCode} className='p-1 cursor-pointer hover:bg-indigo-300 rounded'>{loading ? 'Sending OTP...' : 'Verify Email'}</li>}
               <li className='p-1 cursor-pointer hover:bg-indigo-300 rounded'
@@ -80,7 +85,7 @@ function Navbar() {
                 onClick={deleteAccount}
               >Delete Account</li>
             </ul>
-          </div>
+          </div>}
         </div>
         :
         <button className='border-2 duration-300 ease-linear hover:bg-white hover:text-indigo-500 rounded-full py-1 px-4 cursor-pointer text-white'
