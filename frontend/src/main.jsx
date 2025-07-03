@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements, Navigate } from 'react-router-dom'
 import Layout from './Layout.jsx'
 import Login from './pages/Login.jsx'
 import Home from './pages/Home.jsx'
@@ -16,6 +16,7 @@ const router = createBrowserRouter(
       <Route path='/login' element={<Login />} />
       <Route path='/email-verify' element={<EmailVerify />} />
       <Route path='/reset-password' element={<ResetPassword />} />
+      <Route path='*' element={<Navigate to='/' replace/>} />
     </Route>
   )
 )
