@@ -34,9 +34,7 @@ export const register = async (req, res) => {
       sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
-    await transporter.sendMail(mailOptions);
-
+    
     res.json({ success: true });
   } catch (err) {
     res.json({
