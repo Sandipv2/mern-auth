@@ -17,12 +17,12 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
 
     try {
       axios.defaults.withCredentials = true;
 
       if (state === 'Sign Up') {
-        setLoading(true)
         const { data } = await axios.post(backendUrl + '/api/auth/register', { name, email, password },)
 
         if (data.success) {
@@ -46,6 +46,8 @@ function Login() {
 
     } catch (err) {
       toast.error(err.message)
+    } finally {
+      setLoading(false)
     }
   }
 
